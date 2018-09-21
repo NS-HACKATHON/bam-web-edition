@@ -1,14 +1,13 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {updateUserProfileName} from '../../actions/updateUserProfileName';
 import React from "react";
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
 
 
-
 class DefectenoverzichtContainer extends React.Component {
 
-    
+
     render() {
         const data = [{
             matEenheid: '1',
@@ -24,7 +23,7 @@ class DefectenoverzichtContainer extends React.Component {
         const columns = [{
             Header: 'Materieel eenheid',
             accessor: 'matEenheid' // String-based value accessors!
-        },{
+        }, {
             Header: 'Soort',
             accessor: 'soort' // String-based value accessors!
         }, {
@@ -57,23 +56,19 @@ class DefectenoverzichtContainer extends React.Component {
     }
 }
 
-
-
-
-
 const mapStateToProps = (state) => {
-  return {
-    userName: state.firstname
-  }
+    return {
+        userName: state.firstname
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onChange: (name) => dispatch(updateUserProfileName(name))
-  }
+    return {
+        onChange: (name) => dispatch(updateUserProfileName(name))
+    }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(DefectenoverzichtContainer);
