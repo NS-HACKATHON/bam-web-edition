@@ -12,7 +12,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         this.state = {
             options: {
                 width: '100%',
-                height: '100vh',
+                height: '100%',
                 format: {
                     minorLabels: {
                         minute: 'HH:mm',
@@ -25,8 +25,11 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         }
     }
 
-    componentDidMount() {
-        fetch('https://raw.githubusercontent.com/NS-HACKATHON/bam-web-edition/master/samples/werklijnen-voorbeeld.json')
+    doFilter() {
+        let eenheidnummerStart = prompt("Eenheidnummer start", "");
+        let eenheidnummerEind = prompt("Eenheidnummer eind", "");
+
+        fetch(`http://localhost:7104/webclient/mwd/${eenheidnummerStart}/${eenheidnummerEind}`)
             .then(response => response.json())
             .then(json => this.props.updateWerklijnen(json));
     }
@@ -34,7 +37,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
     makeGroupsAndItems(responseWerklijnen) {
         let groups = [];
         let convertedInzetten = [];
-        for(let responseWerklijnIndex in responseWerklijnen) {
+        for (let responseWerklijnIndex in responseWerklijnen) {
             let responseWerklijn = responseWerklijnen[responseWerklijnIndex];
             groups.push({
                 id: responseWerklijnIndex,
@@ -51,14 +54,14 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
 
     convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
-                return {
-                    start: new Date(inzet.beginTijd),
-                    end: new Date(inzet.eindTijd),
-                    content: inzet.naam,
-                    group: groupIndex,
-                    className: this.getInzetColor(inzet)
-                };
-            });
+            return {
+                start: new Date(inzet.beginTijd),
+                end: new Date(inzet.eindTijd),
+                content: inzet.naam,
+                group: groupIndex,
+                className: this.getInzetColor(inzet)
+            };
+        });
     }
 
     getInzetColor(inzet) {
@@ -75,12 +78,18 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         if (this.props.werklijnen.length > 0) {
             let groupsAndItems = this.makeGroupsAndItems(this.props.werklijnen);
             return (
-                <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
-                                                     options={this.state.options}/>
+                <div className="toolbar">
+                    <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
+                                                         options={this.state.options}/>
+                    <button onClick={this.doFilter}>Filteren</button>
+                </div>
             );
         }
         return (
-            <div>Loading MWD</div>
+            <div className="toolbar">
+                <div>Druk eerst op filteren.</div>
+                <div><button onClick={this.doFilter}>Filteren</button></div>
+            </div>
         );
     }
 }

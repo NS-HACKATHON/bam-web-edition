@@ -1,4 +1,8 @@
 /* See http://visjs.org/examples/timeline/styling/itemClassNames.html on how to apply style classes to vis items. */
+.toolbar {
+    display: grid;
+    grid-template-rows: 90% 10%;
+}
 
 .vis-item.inzetgroen {
     background-color: #0F8909;
