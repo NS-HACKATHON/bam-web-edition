@@ -4,29 +4,51 @@ import 'react-table/react-table.css'
 
 export const DefectenoverzichtComponent = (props) => {
 
-  const data = [{
-    name: 'Tanner Linsley',
-    age: 26,
-    friend: {
-      name: 'Jason Maurer',
-      age: 23,
-    }
-  }]
+  // const data = [{
+  //   name: 'Tanner Linsley',
+  //   age: 26,
+  //   friend: {
+  //     name: 'Jason Maurer',
+  //     age: 23,
+  //   }
+  // }]
+
+    const data = [{
+        matEenheid: '1',
+        soort: 'soort 1',
+        beginTijd: '2012-04-23T18:25:43.511Z',
+        eindTijd: '2012-04-23T19:25:43.511Z',
+        toelichting: 'toelichting 1',
+        hersteldOp: '2012-04-23T19:25:43.511Z',
+        naInzet: 'inzet x',
+    }]
+
 
   const columns = [{
-    Header: 'Name',
-    accessor: 'name' // String-based value accessors!
+      Header: 'Materieel eenheid',
+      accessor: 'matEenheid' // String-based value accessors!
+  },{
+      Header: 'Soort',
+      accessor: 'soort' // String-based value accessors!
   }, {
-    Header: 'Age',
-    accessor: 'age',
-    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    Header: 'Begintijd',
+    accessor: 'beginTijd'
+    // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
   }, {
-    id: 'friendName', // Required because our accessor is not a string
-    Header: 'Friend Name',
-    accessor: d => d.friend.name // Custom value accessors!
+    // id: 'friendName', // Required because our accessor is not a string
+    Header: 'Eindtijd', 
+    accessor: 'eindTijd'
+      // accessor: d => d.friend.name // Custom value accessors!
   }, {
-    Header: props => <span>Friend Age</span>, // Custom header components!
-    accessor: 'friend.age'
+      // Header: props => <span>Friend Age</span>, // Custom header components!
+      Header: 'Toelichting',
+      accessor: 'toelichting'
+  }, {
+      Header: 'Na Inzet',
+      accessor: 'naInzet'
+  }, {
+      Header: 'Hersteld op',
+      accessor: 'hersteldOp'
   }]
 
   return (
