@@ -30,22 +30,40 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             .then(response => response.json())
             .then(json => this.props.updateWerklijnen(json));
     }
+    
+    makeGroupsAndItems(responseWerklijnen) {
+        let groups = [];
+        let convertedInzetten = [];
+        for(let responseWerklijnIndex in responseWerklijnen) {
+            let responseWerklijn = responseWerklijnen[responseWerklijnIndex];
+            groups.push({
+                id: responseWerklijnIndex,
+                content: responseWerklijn.eenheid.nummer + responseWerklijn.eenheid.type
+            });
+            convertedInzetten = convertedInzetten.concat(this.convertResponsWerklijn(responseWerklijn, responseWerklijnIndex));
+        }
+        return {
+            groups: groups,
+            items: convertedInzetten
+        }
+    }
 
-    convertResponsWerklijn(responseWerklijn) {
+    convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
                 return {
                     start: new Date(inzet.beginTijd),
                     end: new Date(inzet.eindTijd),
                     content: inzet.naam,
-                    // group: responseWerklijn.id
+                    group: groupIndex
                 };
             });
     }
 
     render() {
         if (this.props.werklijnen.length > 0) {
+            let groupsAndItems = this.makeGroupsAndItems(this.props.werklijnen);
             return (
-                <MaterieelWerklijnenDiagramComponent groups={this.state.groups} items={this.convertResponsWerklijn(this.props.werklijnen[0])}
+                <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
                                                      options={this.state.options}/>
             );
         }
