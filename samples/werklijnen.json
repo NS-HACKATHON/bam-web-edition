@@ -1,0 +1,62 @@
+[{
+  "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+  "eenheid": {
+    "nummer": 1234,
+    "type": "ICM-3",
+    "defecten": [
+      {
+        "soort": "inzetbaar",
+        "beginTijd": "2020-01-01T00:11",
+        "eindTijd": null,
+        "toelichting": "Deze eenheid gaat over ruim een jaar gewoon kapot!",
+        "naInzet": "111111111-2222-3333-4444-5555555555555"
+      },
+      {
+        "soort": "beperkt inzetbaar",
+        "beginTijd": "2018-01-01T00:11",
+        "eindTijd": "2020-01-01T00:11",
+        "toelichting": "De monteur heeft het zo druk...",
+        "naInzet": null
+      },
+      {
+        "soort": "niet inzetbaar",
+        "beginTijd": "2018-01-01T00:11",
+        "eindTijd": "2020-01-01T00:11",
+        "toelichting": "De monteur heeft het zo druk...",
+        "naInzet": null
+      }
+    ]
+  },
+  "inzetten": [
+    {
+      "id": "111111111-2222-3333-4444-5555555555555",
+      "beginTijd": "2018-09-21T10:22",
+      "eindTijd": "2018-09-21T11:00",
+      "beginLocatie": "Amf",
+      "eindLocatie": "Ut",
+      "geplandType": "SLT-6",
+      "inzetType": "inzetopbeweging",
+      "naam": "3310-V"
+    },
+    {
+      "id": "111111111-2222-3333-4444-6666666666666",
+      "beginTijd": "2018-09-21T11:05",
+      "eindTijd": "2018-09-21T11:35",
+      "beginLocatie": "Amf",
+      "eindLocatie": "Amf",
+      "geplandType": "ICM-3",
+      "inzetType": "matclaim",
+      "naam": "WASSEN"
+    },
+    {
+      "id": "111111111-2222-3333-4444-6666666666666",
+      "beginTijd": "2018-09-21T11:30",
+      "eindTijd": "2018-09-21T12:15",
+      "beginLocatie": "Amf",
+      "eindLocatie": "Ah",
+      "geplandType": "ICM-3",
+      "inzetType": "ritclaim",
+      "naam": "TRALALA"
+    }
+  ]
+}]

@@ -7,8 +7,9 @@
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
+    "react-visjs-timeline": "^1.5.0",
     "redux": "^4.0.0",
-    "vis-react": "^0.3.0"
+    "vis": "^4.21.0"
   },
   "scripts": {
     "start": "react-scripts start",
