@@ -54,14 +54,19 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
 
     convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
-            return {
-                start: new Date(inzet.beginTijd),
-                end: new Date(inzet.eindTijd),
-                content: inzet.naam,
-                group: groupIndex,
-                className: this.getInzetColor(inzet)
-            };
-        });
+                return {
+                    start: new Date(inzet.beginTijd),
+                    end: new Date(inzet.eindTijd),
+                    content: this.generateContent(inzet),
+                    group: groupIndex
+                };
+            });
+    }
+
+    generateContent(inzet) {
+        return '<div class="super">' + inzet.naam + '</div>' +
+            '<div class="lijn ' + this.getInzetColor(inzet) + '"></div>' +
+        '<div class="sub">' + inzet.beginLocatie + '</div>'
     }
 
     getInzetColor(inzet) {
