@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {MaterieelWerklijnenDiagramComponent} from './MaterieelWerklijnenDiagram';
+import {MaterieelWerklijnenDiagramComponent} from './MaterieelWerklijnenDiagramComponent';
 import React from "react";
 import {updateWerklijnen} from "../../actions/werklijnenActions";
 import './MaterieelWerklijnenDiagram.css';
@@ -12,7 +12,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         this.state = {
             options: {
                 width: '100%',
-                height: '100%',
+                height: '100vh',
                 format: {
                     minorLabels: {
                         minute: 'HH:mm',
@@ -26,10 +26,10 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
     }
 
     doFilter() {
-        let eenheidnummerStart = prompt("Eenheidnummer start", "");
-        let eenheidnummerEind = prompt("Eenheidnummer eind", "");
+        let eenheidVan = prompt("Eenheid van", "");
+        let eenheidTot = prompt("Eenheid tot", "");
 
-        fetch(`http://localhost:7104/webclient/mwd/${eenheidnummerStart}/${eenheidnummerEind}`)
+        fetch('https://raw.githubusercontent.com/NS-HACKATHON/bam-web-edition/master/samples/werklijnen-voorbeeld.json')
             .then(response => response.json())
             .then(json => this.props.updateWerklijnen(json));
     }
@@ -54,19 +54,14 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
 
     convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
-                return {
-                    start: new Date(inzet.beginTijd),
-                    end: new Date(inzet.eindTijd),
-                    content: this.generateContent(inzet),
-                    group: groupIndex
-                };
-            });
-    }
-
-    generateContent(inzet) {
-        return '<div class="super">' + inzet.naam + '</div>' +
-            '<div class="lijn ' + this.getInzetColor(inzet) + '"></div>' +
-        '<div class="sub">' + inzet.beginLocatie + '</div>'
+            return {
+                start: new Date(inzet.beginTijd),
+                end: new Date(inzet.eindTijd),
+                content: inzet.naam,
+                group: groupIndex,
+                className: this.getInzetColor(inzet)
+            };
+        });
     }
 
     getInzetColor(inzet) {
@@ -83,17 +78,15 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         if (this.props.werklijnen.length > 0) {
             let groupsAndItems = this.makeGroupsAndItems(this.props.werklijnen);
             return (
-                <div>
-                    <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
-                                                         options={this.state.options}/>
-                    <button onClick={this.doFilter.bind(this)}>Filteren</button>
-                </div>
+                <MaterieelWerklijnenDiagramComponent
+                    groups={groupsAndItems.groups}
+                    items={groupsAndItems.items}
+                    options={this.state.options}/>
             );
         }
         return (
             <div>
-                <div>Druk eerst op filteren.</div>
-                <div><button onClick={this.doFilter.bind(this)}>Filteren</button></div>
+                <button onClick={() => this.doFilter()}>Filteren</button>
             </div>
         );
     }

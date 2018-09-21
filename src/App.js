@@ -9,7 +9,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            darkMode: false
+            darkMode: true
         }
     }
 
