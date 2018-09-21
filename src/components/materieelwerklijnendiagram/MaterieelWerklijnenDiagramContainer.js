@@ -83,17 +83,17 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
         if (this.props.werklijnen.length > 0) {
             let groupsAndItems = this.makeGroupsAndItems(this.props.werklijnen);
             return (
-                <div className="toolbar">
+                <div>
                     <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
                                                          options={this.state.options}/>
-                    <button onClick={this.doFilter}>Filteren</button>
+                    <button onClick={this.doFilter.bind(this)}>Filteren</button>
                 </div>
             );
         }
         return (
-            <div className="toolbar">
+            <div>
                 <div>Druk eerst op filteren.</div>
-                <div><button onClick={this.doFilter}>Filteren</button></div>
+                <div><button onClick={this.doFilter.bind(this)}>Filteren</button></div>
             </div>
         );
     }
