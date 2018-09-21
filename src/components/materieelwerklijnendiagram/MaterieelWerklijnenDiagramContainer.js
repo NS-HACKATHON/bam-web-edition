@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {MaterieelWerklijnenDiagramComponent} from './MaterieelWerklijnenDiagram';
 import React from "react";
+import {updateWerklijnen} from "../../actions/werklijnenActions";
 
 class MaterieelWerklijnenDiagramContainer extends React.Component {
 
@@ -9,47 +10,60 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
 
         this.state = {
             options: {
-                width: '100%',
-                height: '100px',
-                stack: false,
-                showMajorLabels: true,
-                showCurrentTime: true,
-                zoomMin: 1000000,
-                type: 'background',
+                width: '100vw',
+                height: '100vh',
                 format: {
                     minorLabels: {
-                        minute: 'h:mma',
-                        hour: 'ha'
-                    }
-                }
+                        minute: 'HH:mm',
+                        hour: 'HH'
+                    },
+                },
             },
-            items: [{
-                start: new Date(2010, 7, 15),
-                end: new Date(2010, 8, 2),  // end is optional
-                content: 'Trajectory A',
-            }, {
-                start: new Date(2010, 7, 16),
-                end: new Date(2010, 8, 3),  // end is optional
-                content: 'Trajectory A',
-            }]
+            items: [],
+            groups: []
         }
     }
 
+    componentDidMount() {
+        fetch('https://raw.githubusercontent.com/NS-HACKATHON/bam-web-edition/master/samples/werklijnen-voorbeeld.json')
+            .then(response => response.json())
+            .then(json => this.props.updateWerklijnen(json));
+    }
+
+    convertResponsWerklijn(responseWerklijn) {
+        return responseWerklijn.inzetten.map((inzet) => {
+                return {
+                    start: new Date(inzet.beginTijd),
+                    end: new Date(inzet.eindTijd),
+                    content: inzet.naam,
+                    // group: responseWerklijn.id
+                };
+            });
+    }
+
     render() {
+        if (this.props.werklijnen.length > 0) {
+            return (
+                <MaterieelWerklijnenDiagramComponent groups={this.state.groups} items={this.convertResponsWerklijn(this.props.werklijnen[0])}
+                                                     options={this.state.options}/>
+            );
+        }
         return (
-            <MaterieelWerklijnenDiagramComponent options={this.state.options} items={this.state.items}/>
+            <div>Loading MWD</div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        userName: state.firstname
+        werklijnen: state.werklijnen
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        updateWerklijnen: (werklijnen) => dispatch(updateWerklijnen(werklijnen))
+    }
 }
 
 export default connect(

@@ -11,7 +11,7 @@ class App extends Component {
                 <div className="col">
                     <DefectenoverzichtContainer/>
                 </div>
-                <div className="col dark">
+                <div className="col">
                     <MaterieelWerklijnenDiagramContainer/>
                 </div>
             </div>
