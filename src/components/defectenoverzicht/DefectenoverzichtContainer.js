@@ -7,50 +7,77 @@ import 'react-table/react-table.css'
 
 class DefectenoverzichtContainer extends React.Component {
 
+    
+    constructor(props) {
+      super(props) 
+    }
 
     render() {
-        const data = [{
-            matEenheid: '1',
-            soort: 'soort 1',
-            beginTijd: '2012-04-23T18:25:43.511Z',
-            eindTijd: '2012-04-23T19:25:43.511Z',
-            toelichting: 'toelichting 1',
-            hersteldOp: '2012-04-23T19:25:43.511Z',
-            naInzet: 'inzet x',
-        }]
+        const data = [
+          {
+              "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+              "soort": "inzetbaar",
+              "beginTijd": "2020-01-01T00:11",
+              "eindTijd": null,
+              "toelichting": "Deze eenheid gaat over ruim een jaar gewoon kapot!",
+              "naInzet": {
+                  "naam": "3310-V",
+                  "dienstregelpunt": "Ut"
+              }
+          },
+          {
+              "id": "11111111-2222-3333-4444-5555555555555",
+              "soort": "beperkt inzetbaar",
+              "beginTijd": "2018-01-01T00:11",
+              "eindTijd": "2020-01-01T00:11",
+              "toelichting": "De monteur heeft het zo druk...",
+              "naInzet": null
+          },
+          {
+              "id": "66666666-7777-8888-9999-0000000000000",
+              "soort": "niet inzetbaar",
+              "beginTijd": "2018-01-01T00:11",
+              "eindTijd": "2020-01-01T00:11",
+              "toelichting": "De monteur heeft het zo druk...",
+              "naInzet": null
+          }
+      ]
 
 
         const columns = [{
             Header: 'Materieel eenheid',
-            accessor: 'matEenheid' // String-based value accessors!
-        }, {
+            accessor: 'id' // String-based value accessors!
+        },{
             Header: 'Soort',
             accessor: 'soort' // String-based value accessors!
         }, {
-            Header: 'Begintijd',
-            accessor: 'beginTijd'
+          Header: 'Begintijd',
+          accessor: 'beginTijd',
             // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-        }, {
-            // id: 'friendName', // Required because our accessor is not a string
-            Header: 'Eindtijd',
-            accessor: 'eindTijd'
-            // accessor: d => d.friend.name // Custom value accessors!
         }, {
             // Header: props => <span>Friend Age</span>, // Custom header components!
             Header: 'Toelichting',
             accessor: 'toelichting'
         }, {
+            id: 'naInzetNaam',
             Header: 'Na Inzet',
-            accessor: 'naInzet'
+            accessor: d => {
+              if (d.naInzet !== null) {
+                return d.naInzet.naam + ' ' + d.naInzet.dienstregelpunt
+              }
+              return ''
+            }
         }, {
             Header: 'Hersteld op',
-            accessor: 'hersteldOp'
+            accessor: 'eindTijd'
         }]
 
         return (
             <ReactTable
                 data={data}
                 columns={columns}
+                filterable={true}
+                defaultPageSize={10}
             />
         )
     }
