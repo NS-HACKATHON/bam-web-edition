@@ -1,31 +1,67 @@
 /* See http://visjs.org/examples/timeline/styling/itemClassNames.html on how to apply style classes to vis items. */
 
-.vis-item.inzetgroen {
+.vis-item {
+    background-color: transparent;
+    border: 0px;
+}
+.vis-item-content {
+    background-color: transparent;
+}
+
+
+.inzetgroen {
     background-color: #0F8909;
     border-color: #0F8909;
 }
 
-.vis-item.inzetblauw {
+.inzetblauw {
     background-color: #0989C3;
     border-color: #0989C3;
 }
 
-.vis-item.inzetgeel {
+.super {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+    border-color: deeppink;
+    overflow: visible;
+}
+
+.lijn {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+    height:10px;
+    border-color: #0989C3;
+}
+
+.sub {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+    border-color: #0989C3;
+    overflow: visible;
+}
+
+.inzetgeel {
     background-color: #BBB309;
     border-color: #BBB309;
 }
 
-.vis-item.inzetbruin {
+.inzetbruin {
     background-color: #A16B35;
     border-color: #A16B35;
 }
 
-.vis-item.inzetrood {
+.inzetrood {
     background-color: #C20E0A;
     border-color: #C20E0A;
 }
 
-.vis-item.inzetlongdash {
+.inzetlongdash {
     background: repeating-linear-gradient(
             90deg,
             #0F8909,
@@ -36,7 +72,7 @@
     border: none;
 }
 
-.vis-item.inzetshortdash {
+.inzetshortdash {
     background: repeating-linear-gradient(
             90deg,
             #0F8909,
