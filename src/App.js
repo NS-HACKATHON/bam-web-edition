@@ -7,9 +7,13 @@ import MaterieelWerklijnenDiagramContainer
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <MaterieelWerklijnenDiagramContainer/>
-                <DefectenoverzichtContainer/>
+            <div className="app">
+                <div className="col">
+                    <DefectenoverzichtContainer/>
+                </div>
+                <div className="col">
+                    <MaterieelWerklijnenDiagramContainer/>
+                </div>
             </div>
         );
     }
