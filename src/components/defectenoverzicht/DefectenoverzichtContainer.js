@@ -20,8 +20,8 @@ class DefectenoverzichtContainer extends React.Component {
     }
 
     this.wsEndPoint.onmessage = (defecten) => {
-      console.log(defecten.data);
-      this.props.updateDefecten(defecten.data);
+      console.log(JSON.parse(defecten.data));
+      this.props.updateDefecten(JSON.parse(defecten.data));
     }
 
     this.wsEndPoint.onclose = () => {
