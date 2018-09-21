@@ -6,8 +6,17 @@ import "react-table/react-table.css";
 import { DefectenButtonBarComponent } from "./DefectenButtonBar";
 
 class DefectenoverzichtContainer extends React.Component {
+  wsEndPoint = new WebSocket('url');
+
   constructor(props) {
     super(props);
+    initWebSocket();
+  }
+
+  initWebSocket() {
+    this.wsEndPoint.onmessage = (defect) => {
+      console.log(defect.data);
+    }
   }
 
   render() {
