@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {MaterieelWerklijnenDiagramComponent} from './MaterieelWerklijnenDiagram';
 import React from "react";
 import {updateWerklijnen} from "../../actions/werklijnenActions";
+import './MaterieelWerklijnenDiagram.css';
 
 class MaterieelWerklijnenDiagramContainer extends React.Component {
 

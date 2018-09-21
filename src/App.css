@@ -1,9 +1,9 @@
 body {
-    /*background: black;*/
+    background: black;
 }
 
 .app {
-    /*filter: invert(100%);*/
+    filter: invert(100%);
     display: grid;
     grid-template-columns: 40% auto;
     min-height: 100vh;
@@ -11,4 +11,8 @@ body {
 
 .col:first-child {
     border-right: 1px solid black;
+}
+
+.vis-item {
+    filter: invert(100%);
 }
