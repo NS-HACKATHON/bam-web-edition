@@ -38,8 +38,19 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
                     end: new Date(inzet.eindTijd),
                     content: inzet.naam,
                     // group: responseWerklijn.id
+                    className: this.getInzetColor(inzet)
                 };
             });
+    }
+
+    getInzetColor(inzet) {
+        var color = 'inzetgroen';
+        if (inzet.inzetType === 'ritclaim') {
+            color = 'inzetlongdash';
+        } else if (inzet.inzetType === 'matclaim') {
+            color = 'inzetshortdash';
+        }
+        return color;
     }
 
     render() {
