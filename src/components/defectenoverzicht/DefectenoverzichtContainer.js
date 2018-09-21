@@ -4,6 +4,7 @@ import 'react-table/react-table.css';
 import { connect } from "react-redux";
 import "react-table/react-table.css";
 import { DefectenButtonBarComponent } from "./DefectenButtonBar";
+import { updateDefecten } from '../../actions/defectenActions';
 
 class DefectenoverzichtContainer extends React.Component {
   wsEndPoint = new WebSocket('ws://localhost:7104/defectenoverzicht/defect');
@@ -18,8 +19,9 @@ class DefectenoverzichtContainer extends React.Component {
       console.log('Open DefectenWebSocket.');
     }
 
-    this.wsEndPoint.onmessage = (defect) => {
-      console.log(defect.data);
+    this.wsEndPoint.onmessage = (defecten) => {
+      console.log(defecten.data);
+      this.props.updateDefecten(defecten.data);
     }
 
     this.wsEndPoint.onclose = () => {
@@ -28,35 +30,35 @@ class DefectenoverzichtContainer extends React.Component {
   }
 
   render() {
-    const data = [
-      {
-        id: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-        soort: "inzetbaar",
-        beginTijd: "2020-01-01T00:11",
-        eindTijd: null,
-        toelichting: "Deze eenheid gaat over ruim een jaar gewoon kapot!",
-        naInzet: {
-          naam: "3310-V",
-          dienstregelpunt: "Ut"
-        }
-      },
-      {
-        id: "11111111-2222-3333-4444-5555555555555",
-        soort: "beperkt inzetbaar",
-        beginTijd: "2018-01-01T00:11",
-        eindTijd: "2020-01-01T00:11",
-        toelichting: "De monteur heeft het zo druk...",
-        naInzet: null
-      },
-      {
-        id: "66666666-7777-8888-9999-0000000000000",
-        soort: "niet inzetbaar",
-        beginTijd: "2018-01-01T00:11",
-        eindTijd: "2020-01-01T00:11",
-        toelichting: "De monteur heeft het zo druk...",
-        naInzet: null
-      }
-    ];
+    // const data = [
+    //   {
+    //     id: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    //     soort: "inzetbaar",
+    //     beginTijd: "2020-01-01T00:11",
+    //     eindTijd: null,
+    //     toelichting: "Deze eenheid gaat over ruim een jaar gewoon kapot!",
+    //     naInzet: {
+    //       naam: "3310-V",
+    //       dienstregelpunt: "Ut"
+    //     }
+    //   },
+    //   {
+    //     id: "11111111-2222-3333-4444-5555555555555",
+    //     soort: "beperkt inzetbaar",
+    //     beginTijd: "2018-01-01T00:11",
+    //     eindTijd: "2020-01-01T00:11",
+    //     toelichting: "De monteur heeft het zo druk...",
+    //     naInzet: null
+    //   },
+    //   {
+    //     id: "66666666-7777-8888-9999-0000000000000",
+    //     soort: "niet inzetbaar",
+    //     beginTijd: "2018-01-01T00:11",
+    //     eindTijd: "2020-01-01T00:11",
+    //     toelichting: "De monteur heeft het zo druk...",
+    //     naInzet: null
+    //   }
+    // ];
 
     const columns = [
       {
@@ -96,7 +98,7 @@ class DefectenoverzichtContainer extends React.Component {
     return (
       <div>
         <ReactTable
-          data={data}
+          data={this.props.defecten}
           columns={columns}
           filterable={true}
           defaultPageSize={20}
@@ -109,12 +111,13 @@ class DefectenoverzichtContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    userName: state.firstname
+    defecten: state.defecten
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      updateDefecten: (defecten) => dispatch(updateDefecten(defecten))
     }
 }
 
