@@ -38,7 +38,8 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             let responseWerklijn = responseWerklijnen[responseWerklijnIndex];
             groups.push({
                 id: responseWerklijnIndex,
-                content: responseWerklijn.eenheid.nummer + responseWerklijn.eenheid.type
+                content: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.nummer : responseWerklijn.inzetten[0].geplandType,
+                title: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.type : ''
             });
             convertedInzetten = convertedInzetten.concat(this.convertResponsWerklijn(responseWerklijn, responseWerklijnIndex));
         }
