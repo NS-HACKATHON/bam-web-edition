@@ -1,18 +1,27 @@
-body {
-    background: black;
-}
-
 .app {
-    filter: invert(100%);
     display: grid;
     grid-template-columns: 40% auto;
     min-height: 100vh;
+    transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .col:first-child {
     border-right: 1px solid black;
 }
 
-.vis-item {
+.toggle-dark-mode {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    z-index: 99999;
+    border: 1px solid black;
+}
+
+.dark {
+    background-color: rgb(220, 220, 220);
+    filter: invert(100%);
+}
+
+.dark .vis-item {
     filter: invert(100%);
 }

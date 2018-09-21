@@ -31,21 +31,51 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             .then(json => this.props.updateWerklijnen(json));
     }
 
-    convertResponsWerklijn(responseWerklijn) {
+    makeGroupsAndItems(responseWerklijnen) {
+        let groups = [];
+        let convertedInzetten = [];
+        for(let responseWerklijnIndex in responseWerklijnen) {
+            let responseWerklijn = responseWerklijnen[responseWerklijnIndex];
+            groups.push({
+                id: responseWerklijnIndex,
+                content: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.nummer : responseWerklijn.inzetten[0].geplandType,
+                title: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.type : ''
+            });
+            convertedInzetten = convertedInzetten.concat(this.convertResponsWerklijn(responseWerklijn, responseWerklijnIndex));
+        }
+        return {
+            groups: groups,
+            items: convertedInzetten
+        }
+    }
+
+    convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
                 return {
                     start: new Date(inzet.beginTijd),
                     end: new Date(inzet.eindTijd),
                     content: inzet.naam,
-                    // group: responseWerklijn.id
+                    group: groupIndex,
+                    className: this.getInzetColor(inzet)
                 };
             });
     }
 
+    getInzetColor(inzet) {
+        var color = 'inzetgroen';
+        if (inzet.inzetType === 'ritclaim') {
+            color = 'inzetlongdash';
+        } else if (inzet.inzetType === 'matclaim') {
+            color = 'inzetshortdash';
+        }
+        return color;
+    }
+
     render() {
         if (this.props.werklijnen.length > 0) {
+            let groupsAndItems = this.makeGroupsAndItems(this.props.werklijnen);
             return (
-                <MaterieelWerklijnenDiagramComponent groups={this.state.groups} items={this.convertResponsWerklijn(this.props.werklijnen[0])}
+                <MaterieelWerklijnenDiagramComponent groups={groupsAndItems.groups} items={groupsAndItems.items}
                                                      options={this.state.options}/>
             );
         }
