@@ -28,6 +28,14 @@
     overflow: visible;
 }
 
+.dark .super {
+    filter: invert(100%);
+}
+
+.dark .sub {
+    filter: invert(100%);
+}
+
 .lijn {
     float: left;
     position: relative;
@@ -44,6 +52,14 @@
     width: 100%;
     border-color: #0989C3;
     overflow: visible;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: black;
 }
 
 .inzetgeel {

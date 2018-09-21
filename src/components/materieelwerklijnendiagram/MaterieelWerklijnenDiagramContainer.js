@@ -66,7 +66,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             '<div class="lijn ' + this.getInzetColor(inzet) + '"></div>' +
         '<div class="sub">' + inzet.beginLocatie + '</div>'    
     }
-
+    
     getInzetColor(inzet) {
         var color = 'inzetgroen';
         if (inzet.inzetType === 'ritclaim') {
