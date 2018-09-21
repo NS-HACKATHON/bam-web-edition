@@ -30,8 +30,8 @@ const items = [{
 export const MaterieelWerklijnenDiagramComponent = (props) => {
     return (
         <div>
-            <h2>Hello Mr. {props.userName} !</h2>
-            <Timeline options={options} items={items} />
+            <h2>Hello Mr. {props.userName}!</h2>
+            <Timeline options={options} items={items}/>
         </div>
     );
 }
