@@ -5,9 +5,24 @@ import MaterieelWerklijnenDiagramContainer
     from "./components/materieelwerklijnendiagram/MaterieelWerklijnenDiagramContainer";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            darkMode: false
+        }
+    }
+
+    toggleDarkMode() {
+        this.setState({
+            darkMode: !this.state.darkMode
+        });
+    }
+
     render() {
         return (
-            <div className="app">
+            <div className={`app${this.state.darkMode ? ' dark' : ''}`}>
+                <button className="toggle-dark-mode" onClick={() => this.toggleDarkMode()}>Join the dark side</button>
                 <div className="col">
                     <DefectenoverzichtContainer/>
                 </div>
@@ -17,6 +32,7 @@ class App extends Component {
             </div>
         );
     }
+
 }
 
 export default App;
