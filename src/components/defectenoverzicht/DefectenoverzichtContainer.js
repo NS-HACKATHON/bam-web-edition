@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
-import { updateUserProfileName } from "../../actions/updateUserProfileName";
 import React from "react";
 import ReactTable from "react-table";
+import 'react-table/react-table.css';
+import { connect } from "react-redux";
 import "react-table/react-table.css";
 import { DefectenButtonBarComponent } from "./DefectenButtonBar";
 
@@ -113,11 +113,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChange: name => dispatch(updateUserProfileName(name))
-  };
-};
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+}
 
 export default connect(
   mapStateToProps,
