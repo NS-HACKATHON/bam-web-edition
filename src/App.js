@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {DefectenoverzichtContainer} from "./components/defectenoverzicht/DefectenoverzichtContainer";
+import DefectenoverzichtContainer from "./components/defectenoverzicht/DefectenoverzichtContainer";
 import MaterieelWerklijnenDiagramContainer
     from "./components/materieelwerklijnendiagram/MaterieelWerklijnenDiagramContainer";
 
