@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {updateUserProfileName} from '../../actions/updateUserProfileName';
 import React from "react";
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
-
 
 
 class DefectenoverzichtContainer extends React.Component {
@@ -84,23 +83,19 @@ class DefectenoverzichtContainer extends React.Component {
     }
 }
 
-
-
-
-
 const mapStateToProps = (state) => {
-  return {
-    userName: state.firstname
-  }
+    return {
+        userName: state.firstname
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onChange: (name) => dispatch(updateUserProfileName(name))
-  }
+    return {
+        onChange: (name) => dispatch(updateUserProfileName(name))
+    }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(DefectenoverzichtContainer);

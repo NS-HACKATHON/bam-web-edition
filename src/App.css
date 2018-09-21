@@ -1,0 +1,14 @@
+body {
+    /*background: black;*/
+}
+
+.app {
+    /*filter: invert(100%);*/
+    display: grid;
+    grid-template-columns: 40% auto;
+    min-height: 100vh;
+}
+
+.col:first-child {
+    border-right: 1px solid black;
+}
