@@ -58,7 +58,8 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
                 start: new Date(inzet.beginTijd),
                 end: new Date(inzet.eindTijd),
                 content: this.generateContent(inzet),
-                group: groupIndex
+                group: groupIndex,
+                className: (responseWerklijn.eenheid === undefined) ? 'manco' : ''
             };
         });
     }
@@ -70,7 +71,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
     }
 
     getInzetColor(inzet) {
-        var color = 'inzetgroen';
+        let color = 'inzetgroen';
         if (inzet.inzetType === 'ritclaim') {
             color = 'inzetlongdash';
         } else if (inzet.inzetType === 'matclaim') {

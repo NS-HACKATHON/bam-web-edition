@@ -12,17 +12,6 @@
     filter: invert(100%) brightness(70%);
 }
 
-
-.inzetgroen {
-    background-color: #0F8909;
-    border-color: #0F8909;
-}
-
-.inzetblauw {
-    background-color: #0989C3;
-    border-color: #0989C3;
-}
-
 .super {
     float: left;
     position: relative;
@@ -68,6 +57,16 @@
 
 .black {
     color: black;
+}
+
+.inzetgroen {
+    background-color: #0F8909;
+    border-color: #0F8909;
+}
+
+.manco .inzetgroen {
+    background-color: #0989C3;
+    border-color: #0989C3;
 }
 
 .inzetgeel {
