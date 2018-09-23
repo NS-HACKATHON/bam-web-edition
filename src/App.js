@@ -21,9 +21,10 @@ class App extends Component {
 
     render() {
         let mode = this.state.darkMode ? ' dark' : ' light';
+        let modeText = this.state.darkMode ? 'light' : 'dark';
         return (
             <div className={`app ${mode}`}>
-                <button className="toggle-dark-mode" onClick={() => this.toggleDarkMode()}>{`Join the ${mode} side`}</button>
+                <button className="toggle-dark-mode" onClick={() => this.toggleDarkMode()}>{`Join the ${modeText} side`}</button>
                 <div className="col">
                     <DefectenoverzichtContainer/>
                 </div>
