@@ -5,6 +5,7 @@ import {updateWerklijnen} from "../../actions/werklijnenActions";
 import './MaterieelWerklijnenDiagram.css';
 
 class MaterieelWerklijnenDiagramContainer extends React.Component {
+    wsEndPoint = new WebSocket('ws://localhost:7104/webclient/mwd');
 
     constructor(props) {
         super(props);
@@ -23,15 +24,38 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             items: [],
             groups: []
         }
+        this.setupWebSocket();
+    }
+
+    setupWebSocket() {
+        this.wsEndPoint.onopen = () => {
+            console.log('Open Mwd WebSocket.');
+        }
+
+        this.wsEndPoint.onmessage = (werklijnen) => {
+            console.log(JSON.parse(werklijnen.data));
+            this.props.updateWerklijnen(JSON.parse(werklijnen.data));
+        }
+
+        this.wsEndPoint.onclose = () => {
+            console.log('Sluit MwD WebSocket');
+        }
     }
 
     doFilter() {
         let eenheidVan = prompt("Eenheid van", "");
         let eenheidTot = prompt("Eenheid tot", "");
 
-        fetch('https://raw.githubusercontent.com/NS-HACKATHON/bam-web-edition/master/samples/werklijnen-voorbeeld.json')
+        fetch(`http://localhost:7104/webclient/mwd/${eenheidVan}/${eenheidTot}`)
             .then(response => response.json())
             .then(json => this.props.updateWerklijnen(json));
+    }
+
+    maakDate(dateString) {
+        var d = new Date(dateString)
+        d.setHours(d.getHours() - 2);
+
+        return d;
     }
 
     makeGroupsAndItems(responseWerklijnen) {
@@ -55,8 +79,8 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
     convertResponsWerklijn(responseWerklijn, groupIndex) {
         return responseWerklijn.inzetten.map((inzet) => {
             return {
-                start: new Date(inzet.beginTijd),
-                end: new Date(inzet.eindTijd),
+                start: this.maakDate(inzet.beginTijd),
+                end: this.maakDate(inzet.eindTijd),
                 content: this.generateContent(inzet),
                 group: groupIndex,
                 className: (responseWerklijn.eenheid === undefined) ? 'manco' : ''
