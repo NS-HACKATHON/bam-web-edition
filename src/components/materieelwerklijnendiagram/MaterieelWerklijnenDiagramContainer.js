@@ -65,7 +65,7 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
             let responseWerklijn = responseWerklijnen[responseWerklijnIndex];
             groups.push({
                 id: responseWerklijnIndex,
-                content: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.nummer : responseWerklijn.inzetten[0].geplandType,
+                content: geefWerklijnNaam(responseWerklijn),
                 title: (responseWerklijn.eenheid != null) ? responseWerklijn.eenheid.type : ''
             });
             convertedInzetten = convertedInzetten.concat(this.convertResponsWerklijn(responseWerklijn, responseWerklijnIndex));
@@ -122,9 +122,22 @@ class MaterieelWerklijnenDiagramContainer extends React.Component {
     }
 }
 
+/*
+ * Geeft een "naam" voor een werklijn:
+ *   - als de werklijn manco is, dan is de naam het geplande type van de eerste inzet
+ *   - anders is de naam het eenheidnummer
+ */
+function geefWerklijnNaam(werklijn) {
+    return werklijn.eenheid != null ? werklijn.eenheid.nummer : werklijn.inzetten[0].geplandType;
+}
+
+function comparing(extractor) {
+    return (a, b) => extractor(a) >= extractor(b)
+}
+
 const mapStateToProps = (state) => {
     return {
-        werklijnen: state.werklijnen
+        werklijnen: [...state.werklijnen].sort(comparing(geefWerklijnNaam))
     }
 }
 

@@ -3,7 +3,7 @@ const werklijnenReducer = (state = {werklijnen: [], defecten: []}, action) => {
         case 'UPDATE_WERKLIJNEN':
             return {
                 ...state,
-                werklijnen: action.payload
+                werklijnen: updateWerklijnen(state, action)
             };
         case 'UPDATE_DEFECTEN':
             return {
@@ -19,6 +19,12 @@ export default werklijnenReducer;
 const updateDefecten = (state, action) => {
     return state.defecten
         .filter(d => !hasId(action.payload, d.id))
+        .concat(action.payload);
+}
+
+const updateWerklijnen = (state, action) => {
+    return state.werklijnen
+        .filter(w => !hasId(action.payload, w.id))
         .concat(action.payload);
 }
 
